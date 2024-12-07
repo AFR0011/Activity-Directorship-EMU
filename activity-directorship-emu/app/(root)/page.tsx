@@ -5,8 +5,7 @@ export default function Home() {
   return (
     <main>
       <h1 className="text-4xl">Activity Directorship EMU</h1>
-      <Button>Tis button</Button>
+      <Button>CLICK ME</Button>
     </main>
-
   );
 }
