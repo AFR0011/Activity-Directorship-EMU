@@ -20,7 +20,6 @@ const MobileNav = () => {
                     <Image src="/assets/activity-directorship-emu-high-resolution-logo.png" alt="Logo"  width={128} height={38}/>
                     <Separator className="border border-gray-50"/>
                     <NavItems />
-
                 </SheetContent>
             </Sheet>
 
