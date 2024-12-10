@@ -18,7 +18,8 @@ const UpdateEvent = async () => {
       </div>
 
     </>
-  )
+  ) 
 }
+
 
 export default UpdateEvent
