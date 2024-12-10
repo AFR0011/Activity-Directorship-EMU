@@ -2,7 +2,6 @@ import { Document, model, models, Schema } from "mongoose";
 import { unique } from "next/dist/build/utils";
 
 export interface ICategory extends Document {
-    [x: string]: ReactNode;
     _id: string;
     title: string;
 }
