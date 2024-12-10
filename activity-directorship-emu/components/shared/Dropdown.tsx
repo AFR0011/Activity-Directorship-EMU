@@ -5,6 +5,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
+import { ICategory } from "@/lib/database/models/category.model"
 import { useState } from "react"
 
 
@@ -16,7 +17,7 @@ type DropdownProps = {
 
 const DropDown = ({ value, onChangeHandler }: DropdownProps) => {
     
-    const [] = useState<ICategory[]>([]) //Why don't we have categories??
+    const [] = useState<ICategory[]>([])
     return (
         <Select onValueChange={onChangeHandler} defaultValue={value}>
             <SelectTrigger className="select-field">

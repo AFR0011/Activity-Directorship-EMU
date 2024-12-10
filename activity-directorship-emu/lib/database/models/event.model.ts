@@ -20,7 +20,7 @@ export interface IEvent extends Document {
 const EventSchema = new Schema({
     title: { type: String, required: true, unique: true },
     description: { type: String, required: true },
-    category: { type: String, required: true }, // e.g., academic, cultural
+    category: { type: Schema.Types.ObjectId, ref: "Category", required: true }, // e.g., academic, cultural
     imageUrl: { type: String },
     club: { type: Schema.Types.ObjectId, ref: "Club", required: true },
     organizer: { type: Schema.Types.ObjectId, ref: "User", required: true }, // Event Coordinator

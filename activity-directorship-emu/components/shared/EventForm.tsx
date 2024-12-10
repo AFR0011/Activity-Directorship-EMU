@@ -15,7 +15,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { eventFormSchema } from "@/lib/validator"
 import { eventDefaultValues } from "@/constants"
-import DropDown from "./DropDown"
+import DropDown from "./Dropdown"
 
 
 
