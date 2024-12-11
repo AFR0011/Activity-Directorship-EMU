@@ -18,11 +18,13 @@ import { eventDefaultValues } from "@/constants"
 import DropDown from "./Dropdown"
 import { Textarea } from "../ui/textarea"
 import FileUploader from "./FileUploader"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Image from "next/image"
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Checkbox } from "@/components/ui/checkbox"
+import { createCategory, getAllCategories } from "@/lib/actions/category.actions"
+import { ICategory } from "@/lib/database/models/category.model"
 
 
 
@@ -189,7 +191,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
                           <FormControl>
                             <div className="flex items-center">
                               <label htmlFor="isFree" className="whitespace-nowrap pr-3 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Free Ticket</label>
-                              <Checkbox id="isFree" className="mr-2 h-5 w-5 border-2 border-primary-500" />
+                              <Checkbox onCheckedChange={field.onChange} checked={field.value} id="isFree" className="mr-2 h-5 w-5 border-2 border-primary-500" />
                             </div>
                           </FormControl>
                           <FormMessage />
@@ -228,3 +230,4 @@ const EventForm = ({ userId, type }: EventFormProps) => {
 export default EventForm
 
 //TODO: CHECK ALL THE VALUES IN FORM SCHEMA TO MAKE SURE ALL THE NAMES FOR INPUT FIELDS MATCH THEM
+//Also after addressing every matter of importance here, check if it updates DB
