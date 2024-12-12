@@ -39,7 +39,7 @@ const DropDown = ({ value, onChangeHandler }: DropdownProps) => {
             CategoryName: newCategory.trim()
         }).then((category) => {
             setCategoies((prevState) => [...prevState, category])
-        })
+        }) //Category related codes, which we might want to modify later
     }
 
     useEffect(() => {
