@@ -55,26 +55,26 @@ const EventForm = ({ userId, type }: EventFormProps) => {
     if (files.length > 0) {
       const uploadedImages = await startUpload(files)
 
-      if(!uploadedImages) {
-        return 
+      if (!uploadedImages) {
+        return
       }
 
       uploadedImageUrl = uploadedImages[0].url
     }
 
-    if(type === 'Create') {
-      try{
+    if (type === 'Create') {
+      try {
         const newEvent = await createEvent({
-          event: {...values, imageUrl: uploadedImageUrl },
+          event: { ...values, imageUrl: uploadedImageUrl },
           userId,
           path: '/profile'
         })
 
-        if(newEvent) {
+        if (newEvent) {
           form.reset();
           router.push(`/events/${newEvent._id}`)
         }
-      } catch(e) {
+      } catch (e) {
         console.log(e)
       }
     }
