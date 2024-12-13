@@ -3,7 +3,9 @@
 // import { SearchParamProps } from "@/types"
 // import Image from "next/image";
 
+const temp = {};
 
+export default temp;
 // const EventDetails = async ({ params: { id } }: SearchParamProps) => {
 
 //     const event = await getEventById(id);
