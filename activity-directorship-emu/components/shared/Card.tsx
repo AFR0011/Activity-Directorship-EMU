@@ -3,7 +3,7 @@ import { formatDateTime } from "@/lib/utils"
 import Link from "next/link"
 import Image from "next/image"
 import { auth } from "@clerk/nextjs/server"
-import DeleteConfirmation from "./DeleteConfirmation"
+import { DeleteConfirmation } from "./DeleteConfirmation"
 
 
 type CardProps = {
