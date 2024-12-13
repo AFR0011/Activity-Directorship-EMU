@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
+import Collections from "@/components/shared/Collections";
 
 export default function Home() {
   return (
@@ -25,6 +26,8 @@ export default function Home() {
           Search
           CategoryFilter
         </div>
+
+        <Collections />
       </section>
     </>
   );
