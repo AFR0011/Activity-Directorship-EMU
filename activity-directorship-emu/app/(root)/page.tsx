@@ -2,8 +2,17 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
 import Collections from "@/components/shared/Collections";
+import { getAllEvents } from "@/lib/actions/event.actions";
 
-export default function Home() {
+export default async function Home() {
+
+  const events = await getAllEvents({
+    query: '',
+    category: '',
+    page: 1,
+    limit: 6,
+  });
+
   return (
     <>
       <section className="bg-primary-50 bg-dotted-pattern bg-contain py-5 md:py-10">
@@ -16,7 +25,7 @@ export default function Home() {
             </Button>
           </div>
 
-          <Image src="/assets/images/hero.png" alt="Hero Image" width={1000} height={1000} className="max-h-[70vh] object-contain object-center 2xl:max-h-[50vh]"/>
+          <Image src="/assets/images/hero.png" alt="Hero Image" width={1000} height={1000} className="max-h-[70vh] object-contain object-center 2xl:max-h-[50vh]" />
         </div>
       </section>
 
@@ -27,7 +36,7 @@ export default function Home() {
           CategoryFilter
         </div>
 
-        <Collections />
+        <Collections data={events?.data} emptyTitle="No Events Available" emptyStateSubtext="Come back later" collectionType="All_Events" limit={6} page={1} totalPages={2} />
       </section>
     </>
   );

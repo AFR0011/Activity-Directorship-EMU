@@ -16,7 +16,7 @@ const populateEvent = async (query: any) => {
 
 
 
-export const createEvent = async ({...event}:
+export const createEvent = async ({ ...event }:
     CreateEventParams) => {
     try {
         await connectToDatabase();
@@ -26,7 +26,7 @@ export const createEvent = async ({...event}:
             throw new Error("Organizer not found!");
         }
 
-        const newEvent = await Event.create({ ...event }); 
+        const newEvent = await Event.create({ ...event });
 
         return JSON.parse(JSON.stringify(newEvent));
     } catch (e) {
@@ -45,6 +45,27 @@ export const getEventById = async (eventId: string) => {
         }
 
         return JSON.parse(JSON.stringify(event))
+    } catch (e) {
+        handleError(e);
+    }
+}
+
+export const getAllEvents = async ({ ' query, limit = 6, page, category'}: GetAllEventParams) => {
+    try {
+        await connectToDatabase();
+        const conditions = {};
+        const eventsQuery = Event.find(conditions).sort({ createdAt: 'desc' }).skip(0).limit(limit);
+
+        const events = await populateEvent(eventsQuery);
+        const eventsCount = await Event.countDocuments(conditions);
+
+        return {
+            data: JSON.parse(JSON.stringify(events)),
+            totalPages: Math.ceil(eventsCount / limit),
+
+        }
+
+
     } catch (e) {
         handleError(e);
     }
