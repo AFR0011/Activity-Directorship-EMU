@@ -15,17 +15,18 @@ const populateEvent = async (query: any) => {
 }
 
 
-export const createEvent = async ({ event, userId, path }:
+
+export const createEvent = async ({...event}:
     CreateEventParams) => {
     try {
         await connectToDatabase();
 
-        const organizer = await User.findById(userId);
-        if (!organizer) {
+        const organizers = await User.find({ _id: { $in: event.organizerId } });
+        if (!organizers) {
             throw new Error("Organizer not found!");
         }
 
-        const newEvent = await Event.create({ ...event, category: event.categoryId, organizer: userId }); //DB may not have this; CHECK DB
+        const newEvent = await Event.create({ ...event }); 
 
         return JSON.parse(JSON.stringify(newEvent));
     } catch (e) {

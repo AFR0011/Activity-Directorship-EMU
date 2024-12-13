@@ -7,8 +7,8 @@ const UserSchema = new Schema({
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     photo: { type: String },
-    role: { type: String, enum: ["student", "clubPresident", "admin"], required: true },
-}, { timestamps: true });
+    role: { type: String, enum: ["student", "admin"], required: true },
+}, { collection: 'users', timestamps: true });
 
 const User = models.User || model('User', UserSchema);
 

@@ -5,8 +5,6 @@ const isPublicRoute = createRouteMatcher([
   '/', // Home Page
   '/events/:id', // Event details
   '/api/webhooks(.*)', // Webhooks
-  '/api/webhook/clerk', // Clerk webhook
-  '/api/webhook/stripe', // Stripe webhook
   '/api/uploadthing', // File upload API
   '/sign-in(.*)', // Sign-in page
   '/sign-up(.*)', // Sign-up page

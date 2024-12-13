@@ -15,19 +15,18 @@ import {
 import { Input } from "@/components/ui/input"
 import { eventFormSchema } from "@/lib/validator"
 import { eventDefaultValues } from "@/constants"
-import DropDown from "./Dropdown"
+import CategoryDropDown from "./CategoryDropdown"
 import { Textarea } from "../ui/textarea"
 import FileUploader from "./FileUploader"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import Image from "next/image"
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Checkbox } from "@/components/ui/checkbox"
-import { createCategory, getAllCategories } from "@/lib/actions/category.actions"
-import { ICategory } from "@/lib/database/models/category.model"
 import { useUploadThing } from '@/lib/uploadthing'
 import { useRouter } from "next/navigation"
 import { createEvent } from "@/lib/actions/event.actions"
+import ClubDropDown from "./ClubDropDown"
 
 
 type EventFormProps = {
@@ -64,11 +63,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
 
     if (type === 'Create') {
       try {
-        const newEvent = await createEvent({
-          event: { ...values, imageUrl: uploadedImageUrl },
-          userId,
-          path: '/profile'
-        })
+        const newEvent = await createEvent({ ...values })
 
         if (newEvent) {
           form.reset();
@@ -98,11 +93,23 @@ const EventForm = ({ userId, type }: EventFormProps) => {
           />
           <FormField
             control={form.control}
-            name="categoryId"
+            name="category"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
-                  <DropDown onChangeHandler={field.onChange} value={field.value} />
+                  <CategoryDropDown onChangeHandler={field.onChange} value={field.value} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="clubId"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl>
+                  <ClubDropDown onChangeHandler={field.onChange} value={field.value} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -159,7 +166,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
         <div className="flex flex-col gap-5 md:flex-row">
           <FormField
             control={form.control}
-            name="startDateTime"
+            name="startDate"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
@@ -182,7 +189,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
           />
           <FormField
             control={form.control}
-            name="endDateTime"
+            name="endDate"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
@@ -238,7 +245,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
           />
           <FormField
             control={form.control}
-            name="url"
+            name="resources"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
@@ -253,7 +260,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
           />
         </div>
 
-        <Button type="submit" size="lg" disabled={form.formState.isSubmitting} className="button col-span-2 w-full">{form.formState.isSubmitting ? ('Submitting') : `${type} Event }`}</Button>
+        <Button type="submit" size="lg" disabled={form.formState.isSubmitting} className="button col-span-2 w-full">{form.formState.isSubmitting ? ('Submitting') : `${type} Event `}</Button>
       </form>
     </Form>
   )

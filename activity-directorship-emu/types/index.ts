@@ -6,7 +6,7 @@ export type CreateUserParams = {
     username: string;
     email: string;
     photo?: string;
-    role: "student" | "clubPresident" | "admin";
+    role: "student" | "admin";
 };
 
 export type UpdateUserParams = {
@@ -14,7 +14,7 @@ export type UpdateUserParams = {
     lastName?: string;
     username?: string;
     photo?: string;
-    role?: "student" | "clubPresident" | "admin";
+    role?: "student" | "admin";
 };
 
 // ====== CLUB PARAMS
@@ -30,6 +30,7 @@ export type UpdateClubParams = {
     description?: string;
     category?: string;
     presidentId?: string;
+    imageUrl?: string;
 };
 
 export type Club = {
@@ -42,11 +43,6 @@ export type Club = {
         firstName: string;
         lastName: string;
     };
-    members: Array<{
-        _id: string;
-        firstName: string;
-        lastName: string;
-    }>;
 };
 
 // ====== EVENT PARAMS
@@ -80,24 +76,19 @@ export type Event = {
     description: string;
     category: string;
     imageUrl?: string;
-    club: {
+    clubs: Array<{
         _id: string;
         name: string;
-    };
-    organizer: {
-        _id: string;
-        firstName: string;
-        lastName: string;
-    };
-    startDate: Date;
-    endDate: Date;
-    location: string;
-    participants: Array<{
+    }>;
+    organizers: Array<{
         _id: string;
         firstName: string;
         lastName: string;
     }>;
-    resources?: string[];
+    startDate: Date;
+    endDate: Date;
+    location: string;
+    resources?: Array<string>;
 };
 
 // ====== MEMBERSHIP PARAMS
@@ -108,7 +99,7 @@ export type CreateMembershipParams = {
 };
 
 export type UpdateMembershipParams = {
-    status: "approved" | "rejected";
+    status: "approved" | "pending" | "rejected";
 };
 
 export type Membership = {
@@ -129,10 +120,11 @@ export type Membership = {
 export type CreateEventRegistrationParams = {
     userId: string;
     eventId: string;
+    status: "pending" | "approved" | "rejected";
 };
 
 export type UpdateEventRegistrationParams = {
-    attendanceConfirmed: boolean;
+    status: "pending" | "approved" | "rejected";
 };
 
 export type EventRegistration = {
@@ -146,15 +138,15 @@ export type EventRegistration = {
         _id: string;
         title: string;
     };
-    attendanceConfirmed: boolean;
+    status: "pending" | "approved" | "rejected";
 };
 
 // ====== FEEDBACK PARAMS
 export type CreateFeedbackParams = {
     userId: string;
-    clubId?: string;
-    eventId?: string;
-    feedbackText: string;
+    reference: string;
+    rating: number;
+    comments?: string;
 };
 
 export type Feedback = {
@@ -164,16 +156,8 @@ export type Feedback = {
         firstName: string;
         lastName: string;
     };
-    club?: {
-        _id: string;
-        name: string;
-    };
-    event?: {
-        _id: string;
-        title: string;
-    };
-    feedbackText: string;
-    createdAt: Date;
+    reference: string;
+    comments: string;
 };
 
 // ====== URL QUERY PARAMS
