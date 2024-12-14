@@ -25,7 +25,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useUploadThing } from "@/lib/uploadthing";
 import { useRouter } from "next/navigation";
-// import { createEvent, updateEvent } from "@/lib/actions/event.actions";
+import { createEvent, updateEvent } from "@/lib/actions/event.actions";
 import ClubDropDown from "./ClubDropDown";
 import { IEvent } from "@/lib/database/models/event.model";
 
@@ -37,27 +37,24 @@ type EventFormProps = {
 };
 
 const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
-  const [files, setFiles] = useState<File[]>([]); // Didn't we have startDateTime and endDateTime?? Changed to startDate and endDate 
-  const initialValues =
-    event && type === "Update"
-      ? {
-          ...event,
-          startDateTime: new Date(event.startDate),
-          endDateTime: new Date(event.endDate),
-        }
-      : eventDefaultValues;
+  // State init
+  const [files, setFiles] = useState<File[]>([]);
+  // Image uploader
   const { startUpload } = useUploadThing("imageUploader");
+  // Router init for redirection after form submission
   const router = useRouter();
-
+  // Form init
+  const initialValues = event && type === "Update" ? event : eventDefaultValues;
   const form = useForm<z.infer<typeof eventFormSchema>>({
     resolver: zodResolver(eventFormSchema),
-    // defaultValues: initialValues,
+    defaultValues: initialValues,
   });
 
+  // Form submit handler
   async function onSubmit(values: z.infer<typeof eventFormSchema>) {
+    // Get form data
     const eventData = values;
-    let uploadedImageUrl = values.imageUrl;
-
+    let uploadedImageUrl = eventData.imageUrl;
     if (files.length > 0) {
       const uploadedImages = await startUpload(files);
 
@@ -68,17 +65,22 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
       uploadedImageUrl = uploadedImages[0].url;
     }
 
+    // CRUD event
     if (type === "Create") {
-      // try {
-      //   const newEvent = await createEvent({ ...values });
+      try {
+        const newEvent = await createEvent({
+          organizerId: userId,
+          path: `/events/create`,
+          ...eventData,
+        });
 
-      //   if (newEvent) {
-      //     form.reset();
-      //     router.push(`/events/${newEvent._id}`);
-      //   }
-      // } catch (e) {
-      //   console.log(e);
-      // }
+        if (newEvent) {
+          form.reset();
+          router.push(`/events/${newEvent._id}`);
+        }
+      } catch (e) {
+        console.log(e);
+      }
     }
 
     if (type === "Update") {
@@ -87,22 +89,21 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
         return;
       }
 
-      // try {
-      //   const updatedEvent = await updateEvent({
-      //     ...values,
-      //     imageUrl: uploadedImageUrl,
-      //     _id: eventId,
-      //     path: `/events/${eventId}`,
-      //   });
+      try {
+        const updatedEvent = await updateEvent({
+          ...values,
+          _id: eventId,
+          organizerId: userId,
+          path: `/events/${eventId}`,
+        });
 
-      //   if (updatedEvent) {
-      //     // "updateEvent" is not the same as "updatedEvent"; BE CAREFUL IF MODIFYING THIS
-      //     form.reset();
-      //     router.push(`/events/${updatedEvent._id}`);
-      //   }
-      // } catch (e) {
-      //   console.log(e);
-      // }
+        if (updatedEvent) {
+          form.reset();
+          router.push(`/events/${updatedEvent._id}`);
+        }
+      } catch (e) {
+        console.log(e);
+      }
     }
   }
 
@@ -131,7 +132,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
           />
           <FormField
             control={form.control}
-            name="category"
+            name="categoryId"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
@@ -167,7 +168,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
             name="description"
             render={({ field }) => (
               <FormItem className="w-full">
-                <FormControl className="h-72">
+                <FormControl>
                   <Textarea
                     placeholder="Description"
                     {...field}
@@ -183,7 +184,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
             name="imageUrl"
             render={({ field }) => (
               <FormItem className="w-full">
-                <FormControl className="h-72">
+                <FormControl>
                   <FileUploader
                     onFieldChange={field.onChange}
                     imageUrl={field.value}
@@ -203,7 +204,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
-                  <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
+                  <div className="flex-center w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
                     <Image
                       src="/assets/icons/location-grey.svg"
                       alt="Calendar"
@@ -230,7 +231,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
-                  <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
+                  <div className="flex-center w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
                     <Image
                       src="/assets/icons/calendar.svg"
                       alt="Calendar"
@@ -261,7 +262,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
-                  <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
+                  <div className="flex-center w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
                     <Image
                       src="/assets/icons/calendar.svg"
                       alt="Calendar"
@@ -295,7 +296,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
-                  <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
+                  <div className="flex-center w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
                     <Image
                       src="/assets/icons/dollar.svg"
                       alt="Dollar Sign"
@@ -326,7 +327,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                                 onCheckedChange={field.onChange}
                                 checked={field.value}
                                 id="isFree"
-                                className="mr-2 h-5 w-5 border-2 border-primary-500"
+                                className="mr-2 w-5 border-2 border-primary-500"
                               />
                             </div>
                           </FormControl>
@@ -346,7 +347,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
-                  <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
+                  <div className="flex-center w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
                     <Image
                       src="/assets/icons/link.svg"
                       alt="Calendar"

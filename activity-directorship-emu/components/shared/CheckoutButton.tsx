@@ -11,7 +11,7 @@ const CheckoutButton = ( { event }: { event: IEvent } ) => {
 
     const { user } = useUser();
     const userId = user?.publicMetadata.userId as string;
-    const hasEventFinished = new Date(event.endDateTime) < new Date(); //We're supposed to have this, but it's not identified for some reason
+    const hasEventFinished = new Date(event.endDate) < new Date();
 
 
   return (

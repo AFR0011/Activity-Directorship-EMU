@@ -2,16 +2,16 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
 import Collections from "@/components/shared/Collections";
-// import { getAllEvents } from "@/lib/actions/event.actions";
+import { getAllEvents } from "@/lib/actions/event.actions";
 
 export default async function Home() {
 
-  // const events = await getAllEvents({
-  //   query: '',
-  //   category: '',
-  //   page: 1,
-  //   limit: 6,
-  // });
+  const events = await getAllEvents({
+    query: '',
+    category: '',
+    page: 1,
+    limit: 6,
+  });
 
   return (
     <>
@@ -36,7 +36,7 @@ export default async function Home() {
           CategoryFilter
         </div>
 
-        {/* <Collections data={events?.data} emptyTitle="No Events Available" emptyStateSubtext="Come back later" collectionType="All_Events" limit={6} page={1} totalPages={2} /> */}
+        <Collections data={events?.data} emptyTitle="No Events Available" emptyStateSubtext="Come back later" collectionType="All_Events" limit={6} page={1} totalPages={2} />
       </section>
     </>
   );

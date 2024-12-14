@@ -10,12 +10,17 @@ import { handleError } from '@/lib/utils'
 
 import {
   CreateEventParams,
+  DeleteEventParams,
+  GetAllEventsParams,
+  GetEventsByUserParams,
+  GetRelatedEventsByCategoryParams,
   UpdateEventParams,
   // DeleteEventParams,
   // GetAllEventsParams,
   // GetEventsByUserParams,
   // GetRelatedEventsByCategoryParams,
 } from '@/types'
+import Club from '../database/models/club.model'
 
 const getCategoryByName = async (name: string) => {
   return Category.findOne({ name: { $regex: name, $options: 'i' } })
@@ -28,14 +33,16 @@ const populateEvent = (query: any) => {
 }
 
 // CREATE
-export async function createEvent({ userId, event, path }: CreateEventParams) {
+export async function createEvent({ organizerId, path, ...event}: CreateEventParams) {
   try {
     await connectToDatabase()
 
-    const organizer = await User.findById(userId)
+    const organizer = await User.findById(organizerId)
+    const club = await Club.findById(event.clubId);
+    const category = await Category.findById(event.categoryId);
     if (!organizer) throw new Error('Organizer not found')
 
-    const newEvent = await Event.create({ ...event, category: event.categoryId, organizer: userId })
+    const newEvent = await Event.create({ ...event, organizer: organizer, club: club, category: category})
     revalidatePath(path)
 
     return JSON.parse(JSON.stringify(newEvent))
@@ -60,12 +67,12 @@ export async function getEventById(eventId: string) {
 }
 
 // UPDATE
-export async function updateEvent({ userId, event, path }: UpdateEventParams) {
+export async function updateEvent({ organizerId, path, ...event }: UpdateEventParams) {
   try {
     await connectToDatabase()
 
     const eventToUpdate = await Event.findById(event._id)
-    if (!eventToUpdate || eventToUpdate.organizer.toHexString() !== userId) {
+    if (!eventToUpdate || eventToUpdate.organizer.toHexString() !== organizerId) {
       throw new Error('Unauthorized or event not found')
     }
 

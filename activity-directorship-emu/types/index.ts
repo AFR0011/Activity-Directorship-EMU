@@ -47,28 +47,58 @@ export type Club = {
 
 // ====== EVENT PARAMS
 export type CreateEventParams = {
+    path: string;
     title: string;
     description: string;
-    category: string;
+    categoryId: string;
     imageUrl?: string;
     clubId: string;
     organizerId: string;
     startDate: Date;
     endDate: Date;
     location: string;
-    resources?: string[];
+    resources?: string;
 };
 
 export type UpdateEventParams = {
+    path: string;
+    _id: string;
     title?: string;
     description?: string;
-    category?: string;
+    categoryId?: string;
     imageUrl?: string;
+    clubId: string;
+    organizerId: string;
     startDate?: Date;
     endDate?: Date;
     location?: string;
-    resources?: string[];
+    resources?: string;
 };
+
+export type DeleteEventParams = {
+    path: string;
+    eventId: string;
+};
+
+export type GetAllEventsParams = {
+    query: string;
+    limit: number;
+    page: number;
+    category: string;
+};
+
+export type GetEventsByUserParams = {
+    userId: string;
+    limit: number;
+    page: number;
+}
+
+export type GetRelatedEventsByCategoryParams = {
+    categoryId: string;
+    eventId: string;
+    limit: number;
+    page: number;
+}
 
 export type Event = {
     _id: string;
