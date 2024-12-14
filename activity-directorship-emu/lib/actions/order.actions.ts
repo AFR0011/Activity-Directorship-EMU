@@ -3,8 +3,9 @@
 import Stripe from 'stripe';
 import { CheckoutOrderParams } from "@/types" //I created this in the buttom of types
 import { redirect } from 'next/navigation';
-
-
+import { handleError } from '../utils';
+import { connectToDatabase } from '../database';
+import { getEventsByUser } from './event.actions';
 
 
 
@@ -40,5 +41,23 @@ export const checkoutOrder = async (order: CheckoutOrderParams) => {
           redirect(session.url!);
     } catch(e) {
         throw e;
+    }
+}
+
+export const createOrder = async (order: CreateOrderParam) => {
+    try {
+        await connectToDatabase();
+        
+        const newOrder = await order.create({
+            ...order,
+            event: order.eventId,
+            buyer: buyer.buyerId
+        });
+
+        return JSON.parse(JSON.stringify(newOrder))
+
+
+    } catch (e) {
+        handleError(e);
     }
 }
