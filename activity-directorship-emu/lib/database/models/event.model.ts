@@ -11,7 +11,8 @@ export interface IEvent extends Document {
     startDate: Date;
     endDate: Date;
     location: string;
-    price: number;
+    price: string;
+    isFree: boolean;  //I ADDED THIS BECAUSE OF COURSE
     resources?: string[]; // Optional array of resource links
     createdAt: Date; // Added automatically by timestamps
     updatedAt: Date; // Added automatically by timestamps

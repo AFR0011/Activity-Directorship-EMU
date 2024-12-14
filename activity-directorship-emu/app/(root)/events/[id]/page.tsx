@@ -1,3 +1,4 @@
+import CheckoutButton from "@/components/shared/CheckoutButton";
 import Collections from "@/components/shared/Collections";
 import { getEventById } from "@/lib/actions/event.actions"; // THIS USED TO BE FINE, BUT NOW IT'S NO LONGER HERE
 import { formatDateTime } from "@/lib/utils";
@@ -33,7 +34,8 @@ const EventDetails = async ({ params: { id }, searchParams }: SearchParamProps) 
                                 <p className="p-medium-18 ml-2 mt-2 sm:mt-0">by{' '}<span className="text-primary-500">{event.organizer.firstName} {event.organizer.lastName}</span></p>
                             </div>
                         </div>
-                //Checkout Button
+
+                        <CheckoutButton event={event}/>
                         <div className="flex flex-col gap-5">
                             <div className="flex gap-2 md:gap-3">
                                 <Image src={"/assets/icons/calendar.svg"} alt="Calendar" width={32} height={32} />
