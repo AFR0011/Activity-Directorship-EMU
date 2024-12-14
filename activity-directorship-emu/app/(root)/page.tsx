@@ -36,7 +36,7 @@ export default async function Home() {
           CategoryFilter
         </div>
 
-        <Collections data={events?.data} emptyTitle="No Events Available" emptyStateSubtext="Come back later" collectionType="All_Events" limit={6} page={1} totalPages={2} />
+        {/* <Collections data={events?.data} emptyTitle="No Events Available" emptyStateSubtext="Come back later" collectionType="All_Events" limit={6} page={1} totalPages={2} /> */}
       </section>
     </>
   );
