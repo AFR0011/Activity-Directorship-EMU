@@ -25,7 +25,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useUploadThing } from "@/lib/uploadthing";
 import { useRouter } from "next/navigation";
-import { createEvent, updateEvent } from "@/lib/actions/event.actions";
+// import { createEvent, updateEvent } from "@/lib/actions/event.actions";
 import ClubDropDown from "./ClubDropDown";
 import { IEvent } from "@/lib/database/models/event.model";
 
@@ -69,16 +69,16 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
     }
 
     if (type === "Create") {
-      try {
-        const newEvent = await createEvent({ ...values });
+      // try {
+      //   const newEvent = await createEvent({ ...values });
 
-        if (newEvent) {
-          form.reset();
-          router.push(`/events/${newEvent._id}`);
-        }
-      } catch (e) {
-        console.log(e);
-      }
+      //   if (newEvent) {
+      //     form.reset();
+      //     router.push(`/events/${newEvent._id}`);
+      //   }
+      // } catch (e) {
+      //   console.log(e);
+      // }
     }
 
     if (type === "Update") {
