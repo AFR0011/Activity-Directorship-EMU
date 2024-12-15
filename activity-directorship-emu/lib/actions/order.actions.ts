@@ -1,11 +1,12 @@
 "use server"
 
 import Stripe from 'stripe';
-import { CheckoutOrderParams } from "@/types" //I created this in the buttom of types
+import { CheckoutOrderParams, CreateOrderParams } from "@/types" //I created this in the buttom of types
 import { redirect } from 'next/navigation';
 import { handleError } from '../utils';
 import { connectToDatabase } from '../database';
 import { getEventsByUser } from './event.actions';
+import Order from '../database/models/order.model';
 
 
 
@@ -44,14 +45,14 @@ export const checkoutOrder = async (order: CheckoutOrderParams) => {
     }
 }
 
-export const createOrder = async (order: CreateOrderParam) => {
+export const createOrder = async (order: CreateOrderParams) => {
     try {
         await connectToDatabase();
-        
-        const newOrder = await order.create({
+
+        const newOrder = await Order.create({
             ...order,
             event: order.eventId,
-            buyer: buyer.buyerId
+            buyer: order.buyerId
         });
 
         return JSON.parse(JSON.stringify(newOrder))
