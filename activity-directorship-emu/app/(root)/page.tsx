@@ -6,6 +6,7 @@ import { getAllEvents } from "@/lib/actions/event.actions";
 import CategoryDropDown from "@/components/shared/CategoryDropdown"; // Import the client-side component
 import Search from "@/components/shared/Search";
 import { SearchParamProps } from "@/types";
+import CategoryFilter from "@/components/shared/CategoryFilter";
 
 export default async function Home({ searchParams }: SearchParamProps) {
 
@@ -57,7 +58,7 @@ export default async function Home({ searchParams }: SearchParamProps) {
 
                 <div className="flex w-full flex-col gap-5 md:flex-row">
                     <Search />
-                   {/* <CategoryFilter />*/}
+                    <CategoryFilter />
                 </div>
 
                 <Collections
