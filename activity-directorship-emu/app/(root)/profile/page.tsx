@@ -7,10 +7,10 @@ import Link from "next/link"
 
 const profilePage = async () => {
 
-    const { sessionClaims } = auth();
+    const { sessionClaims } = await auth();
     const userId = sessionClaims?.userId as string;
 
-    const organizedEvents = await getEventsByUser({ userId, page: 1 });
+    const organizedEvents = await getEventsByUser({ userId, page: 1, limit: 5 });
 
     return (
         <>
@@ -25,7 +25,7 @@ const profilePage = async () => {
 
 
             <section className="wrapper my-8">
-                <Collections data={events?.data} emptyTitle="No Event Tcikets Purchased Yet" emptyStateSubtext="No worries - there are many events to explore!" collectionType="My_Tickets" limit={6} page={1} urlParamName="ordersPage" totalPages={2} />
+                <Collections data={organizedEvents?.data} emptyTitle="No Event Tcikets Purchased Yet" emptyStateSubtext="No worries - there are many events to explore!" collectionType="My_Tickets" limit={6} page={1} urlParamName="ordersPage" totalPages={2} />
             </section>
 
     //Events Organized
