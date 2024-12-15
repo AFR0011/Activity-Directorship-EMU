@@ -30,7 +30,7 @@ const EventSchema = new Schema({
     location: { type: String, required: true },
     price: { type: Number, defualt: 0 },
     isFree: { type: Boolean, required: true },
-    resources: [{ type: String }], // Links to slides, videos, etc.
+    resources: { type: String }, // Links to slides, videos, etc.
 }, { collection: 'events', timestamps: true });
 
 const Event = models.Event || model('Event', EventSchema);

@@ -26,7 +26,7 @@ const EventDetails = async ({
     <>
       <section className="flex justify-center bg-primary-50 bg-dotted-pattern bg-contain">
         <div className="grid grid-cols-1 md:grid-cols-2 2xl:max-w-7xl">
-          {/* <Image src={event.imageUrl === "" ?  null : event.imageUrl} alt="Hero Image" width={1000} height={1000} className="h-full min-h-[300px] object-cover object-center" /> */}
+          <Image src={event.imageUrl} alt="Hero Image" width={1000} height={1000} className="h-full min-h-[300px] object-cover object-center" />
 
           <div className="flex w-full flex-col gap-8 p-5 md:p-10">
             <div className="flex flex-col gap-6">
@@ -61,12 +61,12 @@ const EventDetails = async ({
                 />
                 <div className="p-medium-16 lg:p-regular-20 flex flex-wrap items-center">
                   <p>
-                    {formatDateTime(event.startDateTime).dateOnly} -{" "}
-                    {formatDateTime(event.startDateTime).timeOnly}
+                    {formatDateTime(event.startDate).dateOnly} -{" "}
+                    {formatDateTime(event.startDate).timeOnly}
                   </p>
                   <p>
-                    {formatDateTime(event.endDateTime).dateOnly} -
-                    {formatDateTime(event.endDateTime).timeOnly}
+                    {formatDateTime(event.endDate).dateOnly} -
+                    {formatDateTime(event.endDate).timeOnly}
                   </p>
                 </div>
               </div>

@@ -22,9 +22,9 @@ export const eventDefaultValues = {
   description: '',
   location: '',
   imageUrl: '',
-  startDateTime: new Date(),
-  endDateTime: new Date(),
+  startDate: new Date(),
+  endDate: new Date(),
   price: '',
   isFree: false,
-  url: '',
+  resources: '',
 }

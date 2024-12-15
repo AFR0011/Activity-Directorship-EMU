@@ -44,11 +44,18 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
   // Router init for redirection after form submission
   const router = useRouter();
   // Form init
-  const initialValues = event && type === "Update" ? event : eventDefaultValues;
+  const initialValues = event && type === "Update" ? {
+    ...event,
+    price: event.price ?? "", // Ensure price is a string or empty
+    startDate: new Date(event.startDate), 
+    endDate: new Date(event.endDate),
+    categoryId: event.category?._id || "",
+  } : eventDefaultValues;
   const form = useForm<z.infer<typeof eventFormSchema>>({
     resolver: zodResolver(eventFormSchema),
     defaultValues: initialValues,
   });
+  
 
   // Form submit handler
   async function onSubmit(values: z.infer<typeof eventFormSchema>) {
@@ -381,6 +388,3 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
 };
 
 export default EventForm;
-
-//TODO: CHECK ALL THE VALUES IN FORM SCHEMA TO MAKE SURE ALL THE NAMES FOR INPUT FIELDS MATCH THEM
-//Also after addressing every matter of importance here, check if it updates DB
