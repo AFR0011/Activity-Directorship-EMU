@@ -82,7 +82,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ message: 'OK', user: newUser });
     } catch (error) {
       console.error('Error in user.created event:', error);
-      return new Response('Internal Server Error', { status: 500 });
+      return new Response(`Internal Server Error ${error}`, { status: 500 });
     }
   }
   
