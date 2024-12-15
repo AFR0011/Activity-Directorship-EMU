@@ -3,17 +3,18 @@ import { getEventById } from "@/lib/actions/event.actions";
 import { auth } from "@clerk/nextjs/server"
 
 type UpdateEventProps = {
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }
 
-const UpdateEvent = async ({ params: { id } }: UpdateEventProps) => {
+const UpdateEvent = async ({ params: rawParams }: UpdateEventProps) => {
   
   const { sessionClaims } = await auth();
 
+  const params = await rawParams;
   const userId = sessionClaims?.userId as string;
-  const event = await getEventById(id);
+  const event = await getEventById(params.id);
 
   return (
 
