@@ -5,12 +5,18 @@ import Collections from "@/components/shared/Collections";
 import { getAllEvents } from "@/lib/actions/event.actions";
 import CategoryDropDown from "@/components/shared/CategoryDropdown"; // Import the client-side component
 import Search from "@/components/shared/Search";
+import { SearchParamProps } from "@/types";
 
-export default async function Home() {
+export default async function Home({ searchParams }: SearchParamProps) {
+
+    const page = Number(searchParams?.page) || 1;
+    const searchText = (searchParams?.query as string) || '';
+    const category = (searchParams?.category as string) || '';
+
     const events = await getAllEvents({
-        query: '',
-        category: '',
-        page: 1,
+        query: searchText,
+        category,
+        page,
         limit: 6,
     });
 
