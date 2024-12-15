@@ -9,10 +9,11 @@ import { SearchParamProps } from "@/types";
 import Image from "next/image";
 
 const EventDetails = async ({
-  params: { id },
+  params: rawParams,
   searchParams,
 }: SearchParamProps) => {
-  const event = await getEventById(id);
+  const params = await rawParams;
+  const event = await getEventById(params.id);
   const relatedEvents = await getRelatedEventsByCategory({
     categoryId: event.categoryId,
     eventId: event._id,
