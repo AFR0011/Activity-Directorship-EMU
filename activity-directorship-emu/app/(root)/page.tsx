@@ -4,6 +4,7 @@ import Image from "next/image";
 import Collections from "@/components/shared/Collections";
 import { getAllEvents } from "@/lib/actions/event.actions";
 import CategoryDropDown from "@/components/shared/CategoryDropdown"; // Import the client-side component
+import Search from "@/components/shared/Search";
 
 export default async function Home() {
     const events = await getAllEvents({
@@ -48,19 +49,9 @@ export default async function Home() {
                     More Than <br />1000 Events
                 </h2>
 
-                <div className="flex flex-col md:flex-row gap-6 md:gap-8 mb-8">
-                    <div className="flex-1">
-                        {/* Search Input */}
-                        <input
-                            type="text"
-                            placeholder="Search events..."
-                            className="w-full p-3 border border-primary-300 rounded-lg text-primary-800 focus:outline-none focus:ring-2 focus:ring-primary-600 transition duration-300"
-                        />
-                    </div>
-                    <div className="flex-1">
-                        {/* Category Filter */}
-                        <CategoryDropDown />
-                    </div>
+                <div className="flex w-full flex-col gap-5 md:flex-row">
+                    <Search />
+                   {/* <CategoryFilter />*/}
                 </div>
 
                 <Collections
