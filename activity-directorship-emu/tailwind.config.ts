@@ -1,7 +1,7 @@
 import { withUt } from 'uploadthing/tw';
 
 module.exports = withUt({
-  darkMode: ['class'],
+  darkMode: ['class'], // Enables dark mode based on a 'class'
   content: [
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
@@ -20,49 +20,52 @@ module.exports = withUt({
       colors: {
         primary: {
           500: '#4b4394',
-          50: ' #211e42',
+          50: '#211e42',
           DEFAULT: '#4b4394',
-          foreground: 'hsl(var(--primary-foreground))',
+          foreground: '#EDEDED', // Light grey text for contrast
         },
         coral: {
           500: '#15BF59',
         },
         grey: {
-          600: '#545454', 
-          500: '#757575',
-          400: '#AFAFAF',
-          50: '#F6F6F6',
+          600: '#333333', // Darker grey for dark mode
+          500: '#4F4F4F',
+          400: '#666666',
+          300: '#A3A3A3',
+          50: '#1F1F1F', // Background alternative
         },
         black: '#000000',
         white: '#FFFFFF',
-        background: 'hsl(var(--background))', // Added background
-        border: 'hsl(var(--border))',
-        input: 'hsl(var(--input))',
-        ring: 'hsl(var(--ring))',
-        foreground: 'hsl(var(--foreground))',
+        
+        // Dark mode-specific variables
+        background: '#121212', // Default dark background
+        foreground: '#EDEDED', // Light text for readability
+        border: '#292929',
+        input: '#333333',
+        ring: '#4b4394',
         secondary: {
-          DEFAULT: 'hsl(var(--secondary))',
-          foreground: 'hsl(var(--secondary-foreground))',
+          DEFAULT: '#1E1E2E', // Slightly lighter than background
+          foreground: '#BBBBBB',
         },
         destructive: {
-          DEFAULT: 'hsl(var(--destructive))',
-          foreground: 'hsl(var(--destructive-foreground))',
+          DEFAULT: '#FF4B4B',
+          foreground: '#FEE2E2',
         },
         muted: {
-          DEFAULT: 'hsl(var(--muted))',
-          foreground: 'hsl(var(--muted-foreground))',
+          DEFAULT: '#2C2C2C',
+          foreground: '#A0A0A0',
         },
         accent: {
-          DEFAULT: 'hsl(var(--accent))',
-          foreground: 'hsl(var(--accent-foreground))',
+          DEFAULT: '#373737',
+          foreground: '#D1D1D1',
         },
         popover: {
-          DEFAULT: 'hsl(var(--popover))',
-          foreground: 'hsl(var(--popover-foreground))',
+          DEFAULT: '#1E1E1E',
+          foreground: '#E5E5E5',
         },
         card: {
-          DEFAULT: 'hsl(var(--card))',
-          foreground: 'hsl(var(--card-foreground))',
+          DEFAULT: '#1A1A1A',
+          foreground: '#E0E0E0',
         },
       },
       fontFamily: {

@@ -20,8 +20,10 @@ const UpdateEvent = async ({ params: rawParams }: UpdateEventProps) => {
   return (
 
     <>
-      <section className="bg-primary-50 bg-dotted-pattern bg-cover bg-center py-5 md:py-10">
-        <h3 className="wrapper h3-bold text-center sm:text-left">Update Event</h3>
+      <section className="bg-dotted-pattern bg-cover bg-center m-5 py-5 md:py-10 md:px">
+        <h3 className="text-center text-white text-2xl font-extrabold md:text-3xl leading-tight text-shadow-md">
+          Update Event
+        </h3>
       </section>
 
       <div className="wrapper my-8">

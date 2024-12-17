@@ -64,6 +64,71 @@ body {
   }
 }
 
+/* react dark-datepicker */
+
+.react-datepicker {
+  background-color: #2a2a2a; /* Dark background */
+  border-radius: 8px;
+  color: #ffffff; /* White text */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.react-datepicker__header {
+  background-color: #333333; /* Darker header */
+  color: #ffffff; /* White text */
+  border-bottom: 1px solid #444444;
+}
+
+.react-datepicker__current-month {
+  color: #ffffff; /* White month name */
+}
+
+.react-datepicker__day {
+  background-color: transparent; /* Transparent background for days */
+  color: #ffffff; /* White text */
+}
+
+.react-datepicker__day:hover {
+  background-color: #555555; /* Dark hover effect */
+}
+
+.react-datepicker__day--selected {
+  background-color: #007bff; /* Blue background for selected day */
+  color: #ffffff; /* White text */
+}
+
+.react-datepicker__day--disabled {
+  background-color: transparent;
+  color: #888888; /* Disabled day color */
+}
+
+.react-datepicker__time-container {
+  background-color: #2a2a2a;
+  border-left: 1px solid #444444;
+}
+
+.react-datepicker__time-box {
+  background-color: #333333;
+  color: #ffffff;
+}
+
+.react-datepicker__input-container input {
+  background-color: #333333;
+  color: #ffffff;
+  border: 1px solid #555555;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.react-datepicker__input-container input:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.react-datepicker__triangle {
+  border-top-color: #333333; /* Triangle color */
+}
+
 
 @layer base {
   * {
