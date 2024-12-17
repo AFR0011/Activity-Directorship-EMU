@@ -87,7 +87,14 @@ export type GetAllEventsParams = {
     category: string;
 };
 
+
 export type GetEventsByUserParams = {
+    userId: string;
+    limit: number;
+    page: number;
+}
+
+export type GetClubsByUserParams = {
     userId: string;
     limit: number;
     page: number;
@@ -130,6 +137,12 @@ export type CreateMembershipParams = {
 
 export type UpdateMembershipParams = {
     status: "approved" | "pending" | "rejected";
+};
+
+export type DeleteMembershipParams = {
+    clubId: string;
+    userId: string;
+    path: string;
 };
 
 export type Membership = {
