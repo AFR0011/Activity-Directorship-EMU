@@ -10,7 +10,7 @@ const Header = () => {
     <header className="w-full border-b">
       <div className="wrapper flex items-center justify-between">
         <Link href='/' className="w-36">
-          <Image src="/activity-directorship-emu-high-resolution-logo.png" alt={"Logo"} width={128} height={38} />
+          <Image src="/logo.png" alt={"Logo"} width={128} height={38} />
         </Link>
 
         <SignedIn>

@@ -7,7 +7,7 @@ const Footer = () => {
     <footer className="border-t">
       <div className="flex-center wrapper flex-between flex flex-col gap-4 p-5 text-center sm:flex-row">
         <Link href='/'>
-        <Image src="/activity-directorship-emu-high-resolution-logo.png" alt="Logo" width={128} height={38}/>
+        <Image src="/logo.png" alt="Logo" width={128} height={38}/>
         </Link>
 
         <p>2024 Activity Directorship EMU. All Rights Reserved.</p>

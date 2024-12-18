@@ -19,7 +19,7 @@ const MobileNav = () => {
         <SheetContent className="flex flex-col gap-6 bg-background text-foreground p-4 md:hidden">
           <div className="flex items-center justify-center">
             <Image
-              src="/activity-directorship-emu-high-resolution-logo.png"
+              src="/logo.png"
               alt="Logo"
               width={128}
               height={38}
