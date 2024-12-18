@@ -7,6 +7,9 @@ import CategoryDropDown from "@/components/shared/CategoryDropdown"; // Import t
 import Search from "@/components/shared/Search";
 import { SearchParamProps } from "@/types";
 import CategoryFilter from "@/components/shared/CategoryFilter";
+import { getAllClubs } from "@/lib/actions/club.actions";
+import ClubCollection from "@/components/shared/ClubCollections";
+import ClubDropDown from "@/components/shared/ClubDropDown";
 
 export default async function Home({ searchParams }: SearchParamProps) {
   const resSearchParams = await searchParams;
@@ -14,7 +17,7 @@ export default async function Home({ searchParams }: SearchParamProps) {
   const searchText = (resSearchParams?.query as string) || "";
   const category = (resSearchParams?.category as string) || "";
 
-  const events = await getAllEvents({
+  const clubs = await getAllClubs({
     query: searchText,
     category,
     page,
@@ -67,14 +70,14 @@ export default async function Home({ searchParams }: SearchParamProps) {
           <CategoryDropDown />
         </div>
 
-        <Collections
-          data={events?.data}
-          emptyTitle="No Events Available"
+        <ClubCollection
+          data={clubs?.data}
+          emptyTitle="No Clubs Available"
           emptyStateSubtext="Come back later"
-          collectionType="All_Events"
+          collectionType="All_Clubs"
           limit={6}
           page={page}
-          totalPages={events?.totalPages}
+          totalPages={clubs?.totalPages}
         />
       </section>
     </>

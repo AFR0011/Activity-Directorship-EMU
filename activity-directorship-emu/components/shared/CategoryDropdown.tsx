@@ -1,5 +1,5 @@
 // CategoryDropDown.tsx
-"use client"; // Ensures this is a client-side component
+"use client";
 
 import {
   Select,
@@ -14,7 +14,7 @@ import { getEventCategories } from "@/lib/actions/category.actions";
 
 type DropdownProps = {
   value?: string;
-  onChangeHandler?: () => void; // Change to pass the handler directly
+  onChangeHandler?: () => void;
 };
 
 const CategoryDropDown = ({ value, onChangeHandler }: DropdownProps) => {

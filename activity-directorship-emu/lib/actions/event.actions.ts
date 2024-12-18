@@ -7,6 +7,7 @@ import Event from '@/lib/database/models/event.model'
 import User from '@/lib/database/models/user.model'
 import Category from '@/lib/database/models/category.model'
 import { handleError } from '@/lib/utils'
+import { getCategoryByName } from '@/lib/actions/category.actions'
 
 import {
   CreateEventParams,
@@ -21,10 +22,6 @@ import {
   // GetRelatedEventsByCategoryParams,
 } from '@/types'
 import Club from '../database/models/club.model'
-
-const getCategoryByName = async (name: string) => {
-  return Category.findOne({ name: { $regex: name, $options: 'i' } })
-}
 
 const populateEvent = (query: any) => {
   return query

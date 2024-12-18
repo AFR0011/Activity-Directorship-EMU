@@ -7,7 +7,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { getEventCategories } from "@/lib/actions/category.actions";
+import { getClubCategories } from "@/lib/actions/category.actions";
 import { ICategory } from "@/lib/database/models/category.model";
 import { formUrlQuery, removeKeysFromQuery } from "@/lib/utils";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -21,7 +21,7 @@ const CategoryFilter = () => {
 
     useEffect(() => {
         const getCategories = async () => {
-            const categoryList = await getEventCategories();
+            const categoryList = await getClubCategories();
             categoryList && setCategories(categoryList as ICategory[]);
         };
 
@@ -64,8 +64,8 @@ const CategoryFilter = () => {
                 <SelectItem value="All" className="select-item p-regular-14">All</SelectItem>
 
                 {categories.map((category) => (
-                    <SelectItem value={category.name} key={category._id} className="select-item p-regular-14">
-                        {category.name}
+                    <SelectItem value={category._id} key={category._id} className="select-item p-regular-14">
+                        {category.title}
                     </SelectItem>
                 ))}
             </SelectContent>

@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   title: "Activity Directorship EMU",
   description: "Event App for 316 Project",
   icons: {
-    icon: '/activity-directorship-emu-high-resolution-logo.png'
+    icon: '/logo.png'
   }
 };
 

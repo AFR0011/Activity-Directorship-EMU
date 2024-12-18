@@ -8,7 +8,7 @@ import {
 import { IClub } from "@/lib/database/models/club.model"
 import { startTransition, useEffect, useState } from "react"
 import { Input } from "../ui/input"
-import { getEventClubs } from "@/lib/actions/club.actions"
+import { getClubs } from "@/lib/actions/club.actions"
 
 
 
@@ -23,13 +23,13 @@ const ClubDropDown = ({ value, onChangeHandler }: DropdownProps) => {
     const [clubs, setClubs] = useState<IClub[]>([])
 
     useEffect(() => {
-        const getClubs = async () => {
-            const clubList = await getEventClubs();
+        const getClub = async () => {
+            const clubList = await getClubs();
 
             clubList && setClubs(clubList as IClub[])
         }
 
-        getClubs();
+        getClub();
     }, [])
 
     return (

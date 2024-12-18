@@ -26,3 +26,7 @@ export const getClubCategories = async () => {
     }
 }
 
+export const getCategoryByName = async (name: string) => {
+    return Category.findOne({ name: { $regex: name, $options: 'i' } })
+  }
+

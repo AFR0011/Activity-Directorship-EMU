@@ -3,6 +3,10 @@ import { model, models, Schema } from "mongoose";
 export interface IClub extends Document {
     _id: string;
     name: string;
+    description: string;
+    category: { _id: string, title: string };
+    imageUrl: string;
+    president: { _id: string, username: string, photo: string}
 }
 
 
