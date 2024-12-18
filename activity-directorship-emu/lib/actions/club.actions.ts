@@ -9,49 +9,46 @@ import User from "../database/models/user.model"
 import Category from "../database/models/category.model"
 import { revalidatePath } from "next/cache"
 import Membership from "../database/models/membership.model"
- 
+
 
 const populateClub = (query: any) => {
-    return query
-      .populate({ path: 'president', model: User, select: '_id firstName lastName' })
-      .populate({ path: 'category', model: Category, select: '_id name' })
-  }
+  return query
+    .populate({ path: 'president', model: User, select: '_id firstName lastName' })
+    .populate({ path: 'category', model: Category, select: '_id name' })
+}
 
 export const getClubs = async () => {
-    try {
-        await connectToDatabase();
-        const clubs = await Club.find();
-        return JSON.parse(JSON.stringify(clubs));
-    } catch(e) {
-        handleError(e)
-    }
+  try {
+    await connectToDatabase();
+    const clubs = await Club.find();
+    return JSON.parse(JSON.stringify(clubs));
+  } catch (e) {
+    handleError(e)
+  }
 }
 
 export async function getUserClubs({ userId, limit = 6, page }: GetClubsByUserParams) {
   try {
     await connectToDatabase();
 
-    // Set conditions for finding memberships based on the userId
-    const conditions = { userId };
+    const conditions = { user: userId, status: 'approved'}
     const skipAmount = (page - 1) * limit;
 
     // Query for memberships where the user is a member
-    const membershipsQuery = Membership.find(conditions)
+    const memberships = await Membership.find(conditions)
       .skip(skipAmount)
       .limit(limit);
 
     // Fetch the clubs by matching the clubIds from the memberships
-    const memberships = await membershipsQuery;
-    const clubIds = memberships.map(membership => membership.clubId);
+    const clubIds = memberships.map(membership => membership.club);
 
     // Query the clubs using the clubIds
-    const clubsQuery = Club.find({ _id: { $in: clubIds } })
+    const clubs = await Club.find({ _id: { $in: clubIds } })
       .sort({ createdAt: 'desc' })
       .skip(skipAmount)
       .limit(limit);
 
-    const clubs = await clubsQuery;
-    const clubsCount = await Membership.countDocuments(conditions);
+    const clubsCount = await Membership.countDocuments({ _id: { $in: clubIds } });
 
     return { data: JSON.parse(JSON.stringify(clubs)), totalPages: Math.ceil(clubsCount / limit) };
   } catch (error) {
@@ -63,32 +60,32 @@ export async function getUserClubs({ userId, limit = 6, page }: GetClubsByUserPa
 
 // GET ALL CLUBS
 export async function getAllClubs({ query, limit = 6, page, category }: GetAllEventsParams) {
-    try {
-      await connectToDatabase()
-  
-      const titleCondition = query ? { title: { $regex: query, $options: 'i' } } : {}
-      const categoryCondition = category ? await getCategoryByName(category) : null
-      const conditions = {
-        $and: [titleCondition, categoryCondition ? { category: categoryCondition._id } : {}],
-      }
-  
-      const skipAmount = (Number(page) - 1) * limit
-      const clubsQuery = Club.find(conditions)
-        .sort({ createdAt: 'desc' })
-        .skip(skipAmount)
-        .limit(limit)
-  
-      const clubs = await populateClub(clubsQuery)
-      const clubsCount = await Club.countDocuments(conditions)
-  
-      return {
-        data: JSON.parse(JSON.stringify(clubs)),
-        totalPages: Math.ceil(clubsCount / limit),
-      }
-    } catch (error) {
-      handleError(error)
+  try {
+    await connectToDatabase()
+
+    const titleCondition = query ? { title: { $regex: query, $options: 'i' } } : {}
+    const categoryCondition = category ? await getCategoryByName(category) : null
+    const conditions = {
+      $and: [titleCondition, categoryCondition ? { category: categoryCondition._id } : {}],
     }
+
+    const skipAmount = (Number(page) - 1) * limit
+    const clubsQuery = Club.find(conditions)
+      .sort({ createdAt: 'desc' })
+      .skip(skipAmount)
+      .limit(limit)
+
+    const clubs = await populateClub(clubsQuery)
+    const clubsCount = await Club.countDocuments(conditions)
+
+    return {
+      data: JSON.parse(JSON.stringify(clubs)),
+      totalPages: Math.ceil(clubsCount / limit),
+    }
+  } catch (error) {
+    handleError(error)
   }
+}
 
 // DELETE CLUB
 export const deleteClub = async ({ clubId, path }: { clubId: string; path: string }) => {

@@ -9,6 +9,7 @@ import { SearchParamProps } from "@/types";
 import CategoryFilter from "@/components/shared/CategoryFilter";
 import { getAllClubs } from "@/lib/actions/club.actions";
 import ClubCollection from "@/components/shared/ClubCollections";
+import ClubDropDown from "@/components/shared/ClubDropDown";
 
 export default async function Home({ searchParams }: SearchParamProps) {
   const resSearchParams = await searchParams;
@@ -66,7 +67,7 @@ export default async function Home({ searchParams }: SearchParamProps) {
 
         <div className="flex w-full flex-col gap-5 md:flex-row">
           <Search />
-          <CategoryFilter />
+          <CategoryDropDown />
         </div>
 
         <ClubCollection

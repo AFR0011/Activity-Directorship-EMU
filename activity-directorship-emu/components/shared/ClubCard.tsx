@@ -14,7 +14,7 @@ type CardProps = {
 const Card = async ({ club }: CardProps) => {
   const { sessionClaims } = await auth()
   const userId = sessionClaims?.userId as string
-  const isClubPresident = userId === club.president._id.toString()
+  const isClubPresident = userId === club.president._id;
 
   return (
     <div className="group relative flex min-h-[380px] w-full max-w-[400px] flex-col overflow-hidden rounded-xl bg-gray-800 shadow-lg transition-transform hover:shadow-gray-700 hover:scale-[1.02] md:min-h-[438px] my-8">
@@ -37,7 +37,7 @@ const Card = async ({ club }: CardProps) => {
               className="brightness-200"
             />
           </Link>
-          <ClubDeleteConfirmation clubId={club._id} />
+          
         </div>
       )}
 
