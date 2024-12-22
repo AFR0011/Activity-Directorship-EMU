@@ -3,7 +3,7 @@ import Collections from "@/components/shared/Collections";
 import {
   getEventById,
   getRelatedEventsByCategory,
-} from "@/lib/actions/event.actions"; // THIS USED TO BE FINE, BUT NOW IT'S NO LONGER HERE
+} from "@/lib/actions/event.actions";
 import { formatDateTime } from "@/lib/utils";
 import { SearchParamProps } from "@/types";
 import Image from "next/image";
@@ -94,7 +94,7 @@ const EventDetails = async ({
           </div>
         </div>
       </section>
-      //Events with the same category
+
       <section className="wrapper my-8 flex flex-col gap-8 md:gap-12">
         <h2 className="h2-bold">Related Events</h2>
         <Collections
