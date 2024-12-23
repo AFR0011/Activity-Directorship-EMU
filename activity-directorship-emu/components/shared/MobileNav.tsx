@@ -13,7 +13,7 @@ const MobileNav = () => {
             alt="Menu Icon"
             width={24}
             height={24}
-            className="cursor-pointer"
+            className="cursor-pointer filter invert"
           />
         </SheetTrigger>
         <SheetContent className="flex flex-col gap-6 bg-background text-foreground p-4 md:hidden">

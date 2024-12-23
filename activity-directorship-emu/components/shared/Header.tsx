@@ -19,7 +19,7 @@ const Header = () => {
           </nav>
         </SignedIn>
 
-        <div className="rounded-full">
+        <div className="rounded-full flex items-center justify-between">
           <SignedIn>
             <UserButton />
             <MobileNav />
